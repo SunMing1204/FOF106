@@ -1,0 +1,41 @@
+<?php
+
+    $file = $_GET['station']; 
+    $fp = @fopen($file, "r");   
+    if ($fp==true)
+    {
+    $line = $_GET['line'];  
+    $pos = -2;  
+    $t = " ";  
+    $data = "";  
+    while ($line > 0) {  
+        while ($t != "\n") {  
+            $flag=fseek($fp, $pos, SEEK_END);  
+            if (fseek($fp, $pos, SEEK_END)==-1){  
+                //fseek($fp, 0);  
+                rewind($fp);  
+                $t="\n";  
+                $line=0;  
+            }else{  
+                $t = fgetc($fp);  
+                $pos --;  
+            }  
+        }  
+        $t = " ";  
+        $line --;  
+    }  
+    while (!feof($fp)) {  
+        $data .= fgets($fp);  
+        $data.='<br/>';  
+    }  
+    fclose ($fp);  
+    echo $data ;
+    }
+
+    else
+
+        {echo 'No file ,please download it';}
+
+
+
+    ?>
