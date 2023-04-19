@@ -1,0 +1,45 @@
+<?php
+try
+{
+   $conn = new com("ADODB.Connection");
+    $connstr = "DRIVER={Microsoft Access Driver (*.mdb)}; DBQ=" . realpath("fof.mdb ");
+    $conn->Open($connstr);
+    $connid=odbc_connect($connstr,"","",SQL_CUR_USE_ODBC );         //连接数据源
+    $sql ="select * from HDA_CONFIG";  
+    $query = odbc_exec($connid, $sql); 
+   if($query){
+       while (odbc_fetch_row($query))
+       {echo "<tr><td>";
+        echo odbc_result($query,"PRODUCT");echo "</td><td>";
+       echo odbc_result($query,"HDA_CODE");echo "</td><td>";
+        echo odbc_result($query,"MEDIA_CODE");echo "</td><td>";
+
+
+       echo odbc_result($query,"SS_CODE");echo "</td><td>";
+       echo odbc_result($query,"DS_CODE");echo "</td><td>";
+
+       echo odbc_result($query,"DISC_SPACER_CONFIG");echo "</td><td>";
+    
+       echo odbc_result($query,"MDW_CELL");echo "</td><td>";
+
+       echo odbc_result($query,"Prime_Blank_Disc_MIM_Disable");echo "</td><td>";
+       echo odbc_result($query,"Recycle_Disc_MIM_Disable");echo "</td></tr>";
+
+      
+
+            
+        }
+         $conn->close();
+}
+}
+   catch (Exception $e)
+ {  
+echo "Please check the fof.mdb file";  
+exit();   
+}   
+
+
+
+
+
+?>
